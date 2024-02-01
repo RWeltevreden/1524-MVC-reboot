@@ -6,57 +6,69 @@ class BooksController
   end
 
   def list
-    # Fetch ALL the books from Active Record
-    # Display all books in View
+    books = Book.all
+    # p books
+    @view.display(books)
   end
 
   def add
-    # Ask for title => View
-    # Ask for price
-    # Ask for author
-    # Ask for category
 
-    # Active Record
-    # Create a new book
-    # Save a new book
+    title = @view.ask_user_for("title")
+    price = @view.ask_user_for("price")
+    author = @view.ask_user_for("author")
+    category = @view.ask_user_for("category")
+
+    book = Book.new(title: title, price: price, author: author, category: category)
+    book.save
   end
 
   def edit
-    # Fetch ALL the books from Active Record
-    # Display all books
 
-    # Ask for which book by ID
+    books = Book.all
+    @view.display(books)
 
-    # Find the book
 
-    # Ask for title => View
-    # Ask for price
-    # Ask for author
-    # Ask for category
+    id = @view.ask_user_for("ID").to_i
 
-    # Edit the data
-    # Save the new witrh new data
+    book = Book.find(id)
+
+    title = @view.ask_user_for("title")
+    price = @view.ask_user_for("price")
+    author = @view.ask_user_for("author")
+    category = @view.ask_user_for("category")
+
+    book.title = title
+    book.price = price
+    book.author = author
+    book.category = category
+
+    book.save
 
   end
 
   def delete
-    # Fetch ALL the books from Active Record
-    # Display all books
 
-    # Ask for which book by ID
+    books = Book.all
+    @view.display(books)
 
-    # Find the book
+    id = @view.ask_user_for("ID").to_i
+    book = Book.find(id)
 
-    # Detroy the book
+    book.destroy
   end
 
   def mark_as_rent
-    # Fetch ALL the books from Active Record
-    # Display all books
 
-    # Ask for which book by ID
-    # Find the book
+    books = Book.all
+    @view.display(books)
+    id = @view.ask_user_for("ID").to_i
+    book = Book.find(id)
     # Mark as rent
-    # Save
+    if book.rent
+      book.rent = false
+    else
+      book.rent = true
+    end
+    book.save
   end
 end
